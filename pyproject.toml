@@ -7,3 +7,11 @@ requires-python = ">=3.12"
 dependencies = [
     "pyside6>=6.10.2",
 ]
+
+[dependency-groups]
+dev = [
+    "invoke>=2.2.1",
+]
+
+# TODO add pre-commit
+# TODO add script to start
