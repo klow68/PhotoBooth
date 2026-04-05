@@ -3,12 +3,19 @@ import QtQuick.Controls
 
 import QtQuick.Controls.Material
 import QtQuick.Layouts
-import qml
 
 ApplicationWindow {
     visible: true
     width: 640
     height: 480
+
+    Connections {
+        target: backend  // qmllint disable
+        function onSProjectPath(message) {
+            UiData.projectPath = message;
+            print(UiData.projectPath);
+        }
+    }
 
     title: qsTr("PhotoBooth")
 
@@ -18,21 +25,26 @@ ApplicationWindow {
     // DESIGN THEME
     Material.theme: Material.System
 
-    RowLayout{
+    RowLayout {
         anchors.fill: parent
-        Webcam{
+        Webcam {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-        ColumnLayout{
-            Button{
+        ColumnLayout {
+            Button {
                 Layout.alignment: Qt.AlignCenter
                 text: '[Smile]'
-                onClicked:{
-                    backend.test2()
+                onClicked: {
+                    backend.test2(); // qmllint disable
                 }
             }
+            // Test image with qrc
+            // Image{
+            //     Layout.fillHeight: true
+            //     Layout.fillWidth: true
+            //     source: "qrc:assets/cadre_photo.jpg"
+            // }
         }
     }
 }
-

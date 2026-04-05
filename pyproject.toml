@@ -5,7 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "click>=8.3.1",
+    "pillow>=12.2.0",
+    "pycups>=2.0.4",
+    "pyrinter>=1.0.1",
     "pyside6>=6.10.2",
+    "requests>=2.32.5",
 ]
 
 [dependency-groups]
@@ -13,5 +18,50 @@ dev = [
     "invoke>=2.2.1",
 ]
 
+[project.scripts]
+pb = "photobooth.main:main"
+
+[tool.ruff]
+# Target Python 3.12.
+target-version = "py312"
+# Set the maximum line length to 120.
+line-length = 120
+
+# See rules at https://docs.astral.sh/ruff/rules/
+[tool.ruff.lint]
+extend-select = [
+    "B",
+    "C90",
+    "D104",
+    "D201",
+    "D211",
+    "D204",
+    "D209",
+    "D210",
+    "D213",
+    "D300",
+    "D419",
+    "E",
+    "W",
+    "F",
+    "I",
+    "ANN201",
+    "ANN202",
+    "ANN205",
+    "ANN206",
+    "N801",
+    "FA",
+    "ISC",
+    "RET",
+    "UP",
+    "YTT",
+    "ASYNC",
+    "BLE",
+    "Q",
+    "SIM",
+    "FLY",
+]
+extend-ignore = []
+fixable = ["ALL"]
+
 # TODO add pre-commit
-# TODO add script to start

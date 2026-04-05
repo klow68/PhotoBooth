@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.1
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+        args: []
+  - repo: local
+    hooks:
+      - id: pyside6-qmlformat
+        name: pyside6-qmlformat
+        entry: uv run pyside6-qmlformat
+        args: [--inplace]
+        language: system
+        types: [qml]
+      - id: pyside6-qmllint
+        name: pyside6-qmllint
+        entry: uv run pyside6-qmllint
+        args: [--max-warnings=0]
+        language: system
+        types: [qml]
