@@ -7,8 +7,8 @@ from PySide6.QtCore import QObject, Signal, Slot
 from photobooth.overlay import add_overlay
 
 # TODO add overlay path to config
-OVERLAY_PHOTO = Path().cwd() / "photobooth" / "view" / "assets" / "cadre_photo_clean.png"
-OVERLAY_PHOTO_FOLDER = Path().cwd() / "photos" / "photos_overlay"
+OVERLAY_PHOTO = Path().cwd() / "src" / "photobooth" / "view" / "assets" / "cadre_photo_clean.png"
+OVERLAY_PHOTO_FOLDER = Path().cwd() / "src" / "photos" / "photos_overlay"
 
 
 class QtBackend(QObject):

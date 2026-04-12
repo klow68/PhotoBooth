@@ -18,7 +18,7 @@ from photobooth.utils.config import read_config
 __RUNNING_FROM_BUNDLE__: bool = getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS")
 
 PROJECT_PATH = Path.cwd() / Path(sys._MEIPASS) if __RUNNING_FROM_BUNDLE__ else Path.cwd()
-VIEW_PATH = PROJECT_PATH if __RUNNING_FROM_BUNDLE__ else PROJECT_PATH / "photobooth" / "view"
+VIEW_PATH = PROJECT_PATH if __RUNNING_FROM_BUNDLE__ else PROJECT_PATH / "src" / "photobooth" / "view"
 QML_PATH = VIEW_PATH / "qml"
 
 
@@ -35,7 +35,7 @@ def start_qt_engine(config: dict[str, Any]) -> None:
     engine.quit.connect(app.quit)
     engine.addImportPath("qrc:/")
     engine.addImportPath(VIEW_PATH)
-    engine.addImportPath("photobooth/view/qml")
+    engine.addImportPath("src/photobooth/view/qml")
     engine.rootContext().setContextProperty("backend", backend)
     engine.load(QUrl.fromLocalFile(QML_PATH / "Main.qml"))
 
