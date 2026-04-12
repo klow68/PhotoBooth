@@ -1,10 +1,38 @@
 import QtQuick
 import QtMultimedia
 import QtQuick.Layouts
-import QtQuick.Controls
 import QtQuick.Controls.Material
 
-Rectangle {
+Item {
+
+    signal capture
+
+    function setTimeout(callback, delay) {
+        if (timer.running) {
+            console.error("nested calls to setTimeout are not supported!");
+            return;
+        }
+        timer.callback = callback;
+        // note: an interval of 0 is directly triggered, so add a little padding
+        timer.interval = delay + 1;
+        timer.running = true;
+    }
+    function setCapture() {
+        UiData.capturedImage = imageCapture.preview;
+    }
+
+    onCapture: {
+        print("capture signal received");
+        UiData.capturedImagePath = UiData.photosPath + Qt.formatDateTime(new Date(), "dd-MM-yyyy_hhmmss") + ".jpg";
+        imageCapture.captureToFile(UiData.capturedImagePath);
+
+        print("start delay");
+        // TODO add a check when the image is ready instead of a fixed delay
+        // setTimeout(setCapture, 500);
+        // print(image.source);
+
+    }
+
     // List media devices
     MediaDevices {
         id: mediaDevices
@@ -24,15 +52,13 @@ Rectangle {
     }
 
     RowLayout {
-        height: 500
-        width: 700
+        anchors.fill: parent
         // display the video output
         VideoOutput {
             id: videoOutput
-            // anchors.fill: parent
-            // TODO remove
-            Layout.preferredHeight: 200
-            Layout.preferredWidth: 200
+            Layout.alignment: Qt.AlignCenter
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         Timer {
@@ -43,48 +69,6 @@ Rectangle {
             property var callback
 
             onTriggered: callback() // qmllint disable
-        }
-
-        Button {
-            // TODO add this to a utils
-            function setTimeout(callback, delay) {
-                if (timer.running) {
-                    console.error("nested calls to setTimeout are not supported!");
-                    return;
-                }
-                timer.callback = callback;
-                // note: an interval of 0 is directly triggered, so add a little padding
-                timer.interval = delay + 1;
-                timer.running = true;
-            }
-            function setCapture() {
-                image.source = imageCapture.preview;
-            }
-
-            text: "test"
-            onClicked: {
-                // TODO add date to filename
-                imageCapture.captureToFile(UiData.photosPath);
-
-                print("start delay");
-                // TODO add a check when the image is ready instead of a fixed delay
-                setTimeout(setCapture, 500);
-                print(image.source);
-            }
-        }
-
-        Rectangle {
-            Layout.preferredHeight: 200
-            Layout.preferredWidth: 200
-            color: "red"
-            Image {
-                id: image
-                anchors.fill: parent
-                // Layout.preferredHeight:200
-                // Layout.preferredWidth:200
-                fillMode: Image.PreserveAspectFit
-                smooth: true
-            }
         }
     }
 

@@ -2,3 +2,4 @@ module PhotoBooth
 Webcam 1.0 Webcam.qml
 Main 1.0 Main.qml
 singleton UiData 1.0 UiData.qml
+Yesno 1.0 Yesno.qml

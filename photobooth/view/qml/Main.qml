@@ -13,7 +13,10 @@ ApplicationWindow {
         target: backend  // qmllint disable
         function onSProjectPath(message) {
             UiData.projectPath = message;
-            print(UiData.projectPath);
+        }
+
+        function onSPhotoOverlayReady(path) {
+            UiData.photoOverlayReady = path;
         }
     }
 
@@ -25,26 +28,28 @@ ApplicationWindow {
     // DESIGN THEME
     Material.theme: Material.System
 
-    RowLayout {
+    ColumnLayout {
         anchors.fill: parent
         Webcam {
+            id: webcam
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-        ColumnLayout {
-            Button {
-                Layout.alignment: Qt.AlignCenter
-                text: '[Smile]'
-                onClicked: {
-                    backend.test2(); // qmllint disable
-                }
+
+        Button {
+            Layout.alignment: Qt.AlignCenter
+            text: '[Smile]'
+            onClicked: {
+                webcam.capture();
+                backend.add_overlay(UiData.capturedImagePath); // qmllint disable
+                yesno.open();
             }
-            // Test image with qrc
-            // Image{
-            //     Layout.fillHeight: true
-            //     Layout.fillWidth: true
-            //     source: "qrc:assets/cadre_photo.jpg"
-            // }
         }
+    }
+
+    Yesno {
+        id: yesno
+        width: parent.width
+        height: parent.height
     }
 }

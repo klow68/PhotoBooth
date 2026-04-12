@@ -2,6 +2,12 @@ pragma Singleton
 import QtQuick
 
 QtObject {
+    // PROJECT
     property string projectPath: ""
-    property string photosPath: projectPath + "/photos"
+
+    // PHOTOS
+    property string photosPath: projectPath + "/photos/"
+    property var capturedImage: ""
+    property string capturedImagePath: ""
+    property string photoOverlayReady: ""
 }

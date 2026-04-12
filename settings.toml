@@ -1,0 +1,6 @@
+[printer]
+name = "HL-L3240CDW_series"
+
+[overlay]
+overlay_image = "overlay.png"
+photos_folder = "photos_overlay"
