@@ -11,6 +11,10 @@ sudo apt-get install libcups2-dev
 ## Fedora
 sudo dnf install cups-devel
 
+In the repo, create the folders photos/photos_overlay
+Add the necessary assets you can found them in the settings.toml
+run `uv run invoke generate-qrc`
+and then start the project with `uv run pb`
 
 
 # Good to know
