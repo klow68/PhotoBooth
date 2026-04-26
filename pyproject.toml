@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "click>=8.3.1",
     "pillow>=12.2.0",
+    "pip>=26.0.1",
     "pycups>=2.0.4",
     "pyrinter>=1.0.1",
     "pyside6>=6.10.2",

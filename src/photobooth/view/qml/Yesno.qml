@@ -29,7 +29,7 @@ Popup {
             Layout.preferredHeight: 150
             // gif used: https://www.artstation.com/artwork/qAkERa
             source: "qrc:assets/loading.gif"
-            visible: image.source === ""
+            visible: image.source == ""
         }
 
         RowLayout {
@@ -39,18 +39,18 @@ Popup {
                 Layout.alignment: Qt.AlignCenter
                 text: 'Cancel'
                 onClicked: {
-                    popup.close();
                     // reset image to avoid showing the previous one when reopening the popup
                     UiData.photoOverlayReady = "";
+                    popup.close();
                 }
             }
             Button {
                 Layout.alignment: Qt.AlignCenter
                 text: 'Print'
                 onClicked: {
-                    popup.close();
                     // reset image to avoid showing the previous one when reopening the popup
                     UiData.photoOverlayReady = "";
+                    popup.close();
                 }
             }
         }

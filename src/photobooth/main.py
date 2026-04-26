@@ -13,12 +13,12 @@ from PySide6.QtQml import QQmlApplicationEngine
 
 import photobooth.qrc  # noqa: F401
 from photobooth.backend.backend import QtBackend
-from photobooth.utils.config import read_config
+#from photobooth.utils.toml_config import read_config
 
 __RUNNING_FROM_BUNDLE__: bool = getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS")
 
-PROJECT_PATH = Path.cwd() / Path(sys._MEIPASS) if __RUNNING_FROM_BUNDLE__ else Path.cwd()
-VIEW_PATH = PROJECT_PATH if __RUNNING_FROM_BUNDLE__ else PROJECT_PATH / "src" / "photobooth" / "view"
+PROJECT_PATH = Path.cwd() / Path(sys._MEIPASS) if __RUNNING_FROM_BUNDLE__ else Path(__file__).parent
+VIEW_PATH = PROJECT_PATH if __RUNNING_FROM_BUNDLE__ else PROJECT_PATH / "view"
 QML_PATH = VIEW_PATH / "qml"
 
 
@@ -35,7 +35,7 @@ def start_qt_engine(config: dict[str, Any]) -> None:
     engine.quit.connect(app.quit)
     engine.addImportPath("qrc:/")
     engine.addImportPath(VIEW_PATH)
-    engine.addImportPath("src/photobooth/view/qml")
+    engine.addImportPath(str(QML_PATH))
     engine.rootContext().setContextProperty("backend", backend)
     engine.load(QUrl.fromLocalFile(QML_PATH / "Main.qml"))
 
@@ -44,7 +44,7 @@ def start_qt_engine(config: dict[str, Any]) -> None:
 
 def main() -> None:
     """Initialize and run the app."""
-    config = read_config()
+    config = {}#read_config(PROJECT_PATH / ".." / "..")
     start_qt_engine(config)
 
 
